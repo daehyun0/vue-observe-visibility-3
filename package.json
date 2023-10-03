@@ -1,0 +1,19 @@
+{
+  "name": "vue-observe-visibility-3",
+  "version": "0.0.0",
+  "private": false,
+  "type": "module",
+  "main": "dist/vue-observe-visibility-3.umdjs",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "peerDependencies": {
+    "vue": "^3.3.4"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.3.4",
+    "vite": "^4.4.9"
+  }
+}
