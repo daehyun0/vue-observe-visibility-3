@@ -1,10 +1,11 @@
-function d(e) {
+import { nextTick as d } from "vue";
+function p(e) {
   let i;
   return typeof e == "function" ? i = {
     callback: e
   } : i = e, i;
 }
-function p(e, i, r = {}) {
+function v(e, i, r = {}) {
   let t, s, n;
   const l = (o, ...a) => {
     if (n = a, t && o === s)
@@ -18,18 +19,18 @@ function p(e, i, r = {}) {
     clearTimeout(t), t = null;
   }, l;
 }
-function f(e, i) {
+function h(e, i) {
   if (e === i)
     return !0;
   if (typeof e == "object") {
     for (const r in e)
-      if (!f(e[r], i[r]))
+      if (!h(e[r], i[r]))
         return !1;
     return !0;
   }
   return !1;
 }
-class v {
+class y {
   constructor(i, r, t) {
     this.el = i, this.observer = null, this.frozen = !1, this.createObserver(r, t);
   }
@@ -38,11 +39,11 @@ class v {
   }
   createObserver(i, r) {
     if (this.observer && this.destroyObserver(), !this.frozen) {
-      if (this.options = d(i), this.callback = (t, s) => {
+      if (this.options = p(i), this.callback = (t, s) => {
         this.options.callback(t, s), t && this.options.once && (this.frozen = !0, this.destroyObserver());
       }, this.callback && this.options.throttle) {
         const { leading: t } = this.options.throttleOptions || {};
-        this.callback = p(this.callback, this.options.throttle, {
+        this.callback = v(this.callback, this.options.throttle, {
           leading: (s) => t === "both" || t === "visible" && s || t === "hidden" && !s
         });
       }
@@ -58,7 +59,7 @@ class v {
             return;
           this.oldResult = n, this.callback(n, s);
         }
-      }, this.options.intersection), r.context.$nextTick(() => {
+      }, this.options.intersection), d(() => {
         this.observer && this.observer.observe(this.el);
       });
     }
@@ -72,12 +73,12 @@ function u(e, { value: i }, r) {
     if (typeof IntersectionObserver > "u")
       console.warn("[vue-observe-visibility] IntersectionObserver API is not available in your browser. Please install this polyfill: https://github.com/w3c/IntersectionObserver/tree/master/polyfill");
     else {
-      const t = new v(e, i, r);
+      const t = new y(e, i, r);
       e._vue_visibilityState = t;
     }
 }
-function y(e, { value: i, oldValue: r }, t) {
-  if (f(i, r))
+function g(e, { value: i, oldValue: r }, t) {
+  if (h(i, r))
     return;
   const s = e._vue_visibilityState;
   if (!i) {
@@ -91,23 +92,22 @@ function b(e) {
   i && (i.destroyObserver(), delete e._vue_visibilityState);
 }
 const O = {
-  bind: u,
-  update: y,
-  unbind: b
+  created: u,
+  updated: g,
+  beforeUnmount: b
 };
-function g(e) {
+function k(e) {
   e.directive("observe-visibility", O);
 }
-const k = {
+const _ = {
   // eslint-disable-next-line no-undef
-  version: VERSION,
-  install: g
+  install: k
 };
-let h = null;
-typeof window < "u" ? h = window.Vue : typeof global < "u" && (h = global.Vue);
-h && h.use(k);
+let f = null;
+typeof window < "u" ? f = window.Vue : typeof global < "u" && (f = global.Vue);
+f && f.use(_);
 export {
   O as ObserveVisibility,
-  k as default,
-  g as install
+  _ as default,
+  k as install
 };
