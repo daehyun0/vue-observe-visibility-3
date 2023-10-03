@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": false,
   "type": "module",
-  "main": "dist/vue-observe-visibility-3.umdjs",
+  "main": "dist/vue-observe-visibility.js",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
