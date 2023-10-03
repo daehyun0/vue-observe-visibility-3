@@ -1,4 +1,5 @@
 import { processOptions, throttle, deepEqual } from '../utils'
+import {nextTick} from "vue";
 
 class VisibilityState {
 	constructor (el, options, vnode) {
@@ -60,7 +61,7 @@ class VisibilityState {
 		}, this.options.intersection)
 
 		// Wait for the element to be in document
-		vnode.context.$nextTick(() => {
+		nextTick(() => {
 			if (this.observer) {
 				this.observer.observe(this.el)
 			}
@@ -114,7 +115,7 @@ function unbind (el) {
 }
 
 export default {
-	bind,
-	update,
-	unbind,
+	created: bind,
+	updated: update,
+	beforeUnmount: unbind,
 }
